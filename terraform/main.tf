@@ -1,51 +1,15 @@
-resource "proxmox_virtual_environment_container" "ubuntu" {
+module "web01" {
+  source = "./modules/lxc-container"
 
-  tags = [
-    "terraform",
-    "lab",
-    "github"
-  ]
+  node_name          = var.proxmox_node
+  vm_id              = 101
+  hostname           = "web01"
+  storage_pool       = var.storage_pool
+  container_template = var.container_template
+  container_ip       = "192.168.4.101/22"
+  gateway            = var.gateway
 
-  node_name = var.proxmox_node
-  vm_id     = var.container_id
-
-  unprivileged = true
-
-  features {
-    nesting = true
-  }
-
-  initialization {
-    hostname = var.container_name
-
-    ip_config {
-      ipv4 {
-        address = var.container_ip
-        gateway = var.gateway
-      }
-    }
-  }
-
-  network_interface {
-    name     = "veth0"
-    firewall = false
-  }
-
-  disk {
-    datastore_id = var.storage_pool
-    size         = 8
-  }
-
-  operating_system {
-    template_file_id = var.container_template
-    type             = "ubuntu"
-  }
-
-  cpu {
-    cores = 1
-  }
-
-  memory {
-    dedicated = 1024
-  }
+  cores     = 1
+  memory    = 1024
+  disk_size = 8
 }
