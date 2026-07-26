@@ -20,14 +20,15 @@ resource "proxmox_virtual_environment_container" "ubuntu" {
 
     ip_config {
       ipv4 {
-        address = "dhcp"
+        address = var.container_ip
+        gateway = var.gateway
       }
     }
   }
 
   network_interface {
     name     = "veth0"
-    firewall = true
+    firewall = false
   }
 
   disk {

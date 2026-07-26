@@ -42,3 +42,15 @@ variable "container_name" {
   type    = string
   default = "web01"
 }
+
+variable "container_ip" {
+  description = "Container IPv4 address with CIDR"
+  type        = string
+  default     = "192.168.4.101/22"
+}
+
+variable "gateway" {
+  description = "Default gateway"
+  type        = string
+  default     = "192.168.4.1"
+}
