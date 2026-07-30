@@ -8,6 +8,7 @@ module "web01" {
   container_template = var.container_template
   container_ip       = "192.168.4.101/22"
   gateway            = var.gateway
+ # ssh_public_key = file("~/.ssh/id_ed25519.pub") 
 
   cores     = 1
   memory    = 1024
@@ -24,6 +25,7 @@ module "web02" {
   container_template = var.container_template
   container_ip       = "192.168.4.102/22"
   gateway            = var.gateway
+ # ssh_public_key = file("~/.ssh/id_ed25519.pub")
 
   cores     = 1
   memory    = 1024
@@ -39,6 +41,7 @@ module "postgres01" {
   storage_pool  = var.storage_pool
   container_template = var.container_template
   gateway            = var.gateway
+ # ssh_public_key = file("~/.ssh/id_ed25519.pub") 
 
   memory = 4096
   cores = 2
