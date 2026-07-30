@@ -39,3 +39,20 @@
       authorized_key:
         user: ansible
         key: "{{ ssh_public_key }}"
+
+
+- hosts: all
+  become: true
+  roles:
+    - common
+
+- hosts: web
+  become: true
+  roles:
+    - web
+
+- hosts: database
+  become: true
+  roles:
+    - postgres
+    

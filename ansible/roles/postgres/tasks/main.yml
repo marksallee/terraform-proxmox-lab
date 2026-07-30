@@ -1,0 +1,13 @@
+---
+- name: Install PostgreSQL
+  apt:
+    name:
+      - postgresql
+      - postgresql-contrib
+    state: present
+
+- name: Enable PostgreSQL
+  systemd:
+    name: postgresql
+    enabled: yes
+    state: started

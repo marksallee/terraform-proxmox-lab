@@ -1,0 +1,21 @@
+---
+- name: Update apt package cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Upgrade installed packages
+  apt:
+    upgrade: dist
+
+- name: Install common utilities
+  apt:
+    name:
+      - vim
+      - curl
+      - wget
+      - net-tools
+      - htop
+      - unzip
+      - git
+    state: present

@@ -1,0 +1,20 @@
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Enable nginx
+  systemd:
+    name: nginx
+    enabled: yes
+    state: started
+
+- name: Create custom homepage
+  copy:
+    content: |
+      <html>
+      <h1>{{ inventory_hostname }}</h1>
+      <p>Provisioned by Terraform + Ansible</p>
+      </html>
+    dest: /var/www/html/index.html
