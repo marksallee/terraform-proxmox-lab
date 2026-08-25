@@ -5,7 +5,7 @@ A portfolio home lab that demonstrates a practical infrastructure delivery path:
 ## Architecture
 
 ```mermaid
-flowchart LR
+flowchart TD
     Dev[Engineer] -->|terraform init / plan / apply| TF[Terraform]
     TF -->|Proxmox API token| PX[Proxmox VE 9]
     PX --> Storage[LVM-Thin storage]
