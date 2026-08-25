@@ -8,12 +8,7 @@ module "web01" {
   container_template = var.container_template
   container_ip       = "10.42.0.101/24"
   gateway            = var.gateway
-<<<<<<< Updated upstream
-  # ssh_public_key = file("~/.ssh/id_ed25519.pub")
-=======
  
->>>>>>> Stashed changes
-
   cores     = 1
   memory    = 1024
   disk_size = 8
@@ -29,7 +24,6 @@ module "web02" {
   container_template = var.container_template
   container_ip       = "10.42.0.102/24"
   gateway            = var.gateway
-  # ssh_public_key = file("~/.ssh/id_ed25519.pub")
 
   cores     = 1
   memory    = 1024
