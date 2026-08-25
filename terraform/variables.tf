@@ -46,11 +46,11 @@ variable "container_name" {
 variable "container_ip" {
   description = "Container IPv4 address with CIDR"
   type        = string
-  default     = "192.168.4.101/22"
+  default     = "10.42.0.101/24"
 }
 
 variable "gateway" {
   description = "Default gateway"
   type        = string
-  default     = "192.168.4.1"
+  default     = "10.42.0.1"
 }
