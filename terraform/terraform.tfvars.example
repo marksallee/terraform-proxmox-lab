@@ -1,6 +1,5 @@
 
-p
-roxmox_endpoint = "https://10.42.0.99:8006/api2/json"
+proxmox_endpoint = "https://10.42.0.99:8006/api2/json"
 
 proxmox_api_token = "terraform@pve!terraform=YOUR_API_TOKEN"
 
