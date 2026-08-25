@@ -1,20 +1,41 @@
 ---
-- name: Install nginx
+- name: Install web packages
   apt:
-    name: nginx
+    name:
+      - nginx
+      - python3
+      - python3-flask
+      - python3-venv
     state: present
+    update_cache: yes
 
-- name: Enable nginx
+- name: Create application directory
+  file:
+    path: /opt/lab-app
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install Flask application
+  template:
+    src: app.py.j2
+    dest: /opt/lab-app/app.py
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install application systemd service
+  template:
+    src: lab-app.service.j2
+    dest: /etc/systemd/system/lab-app.service
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Enable and start application
   systemd:
-    name: nginx
+    name: lab-app
     enabled: yes
     state: started
-
-- name: Create custom homepage
-  copy:
-    content: |
-      <html>
-      <h1>{{ inventory_hostname }}</h1>
-      <p>Provisioned by Terraform + Ansible</p>
-      </html>
-    dest: /var/www/html/index.html
+    daemon_reload: yes

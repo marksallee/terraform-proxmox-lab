@@ -1,0 +1,21 @@
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return """
+    <html>
+      <head>
+        <title>Terraform + Ansible Lab</title>
+      </head>
+      <body>
+        <h1>Hello from {{ inventory_hostname }}</h1>
+        <p>This server was provisioned with Terraform.</p>
+        <p>This application was configured with Ansible.</p>
+      </body>
+    </html>
+    """
+
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=8000)

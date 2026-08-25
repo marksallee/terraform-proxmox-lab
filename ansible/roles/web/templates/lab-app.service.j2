@@ -1,0 +1,12 @@
+[Unit]
+Description=Terraform Ansible Lab Web Application
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/opt/lab-app
+ExecStart=/usr/bin/python3 /opt/lab-app/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
