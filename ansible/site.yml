@@ -3,7 +3,8 @@
 # account exists yet, so we must connect as root using the general key
 # Terraform injected via ssh_public_key. The bootstrap role creates the
 # dedicated ansible user (with its own key) that every later play uses.
-- hosts: all
+- name: Bootstrap the ansible automation user and apply common baseline
+  hosts: all
   become: true
   remote_user: root
   vars:
@@ -12,12 +13,14 @@
     - bootstrap
     - common
 
-- hosts: web
+- name: Configure web servers
+  hosts: web
   become: true
   roles:
     - web
 
-- hosts: database
+- name: Configure database servers
+  hosts: database
   become: true
   roles:
     - postgres
