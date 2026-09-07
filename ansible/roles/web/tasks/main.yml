@@ -7,7 +7,7 @@
       - python3-flask
       - python3-venv
     state: present
-    update_cache: yes
+    update_cache: true
 
 - name: Create application directory
   ansible.builtin.file:
@@ -36,9 +36,9 @@
 - name: Enable and start application
   ansible.builtin.systemd:
     name: lab-app
-    enabled: yes
+    enabled: true
     state: started
-    daemon_reload: yes
+    daemon_reload: true
 
 - name: Configure nginx site
   ansible.builtin.template:
@@ -62,5 +62,5 @@
 - name: Restart nginx
   ansible.builtin.systemd:
     name: nginx
-    enabled: yes
+    enabled: true
     state: restarted

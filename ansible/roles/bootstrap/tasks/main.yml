@@ -3,11 +3,11 @@
   ansible.builtin.user:
     name: ansible
     groups: sudo
-    append: yes
+    append: true
     shell: /bin/bash
 
 - name: Add SSH public key for ansible user
-  ansible.builtin.authorized_key:
+  ansible.posix.authorized_key:
     user: ansible
     key: "{{ lookup('file', '~/.ssh/id_ed25519_lab.pub') }}"
 
