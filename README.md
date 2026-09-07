@@ -6,15 +6,21 @@ A portfolio home lab that demonstrates a practical infrastructure delivery path:
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    Dev[Engineer] -->|terraform init / plan / apply| TF[Terraform]
-    TF -->|Proxmox API token| PX[Proxmox VE 9]
-    PX --> Storage[LVM-Thin storage]
-    PX --> LXC[Ubuntu LXC containers]
-    LXC -->|optional configuration| ANS[Ansible roles]
-    ANS --> NGINX[Nginx]
-    ANS --> PG[PostgreSQL]
+```
+Engineer
+   |  terraform init / plan / apply
+   v
+Terraform  --(Proxmox API token)-->  Proxmox VE 9
+                                          |
+                        +-----------------+-----------------+
+                        |                                   |
+                  LVM-Thin storage                Ubuntu LXC containers
+                                                             |
+                                                   ansible-playbook site.yml
+                                                             |
+                                                     +-------+-------+
+                                                     |               |
+                                                   Nginx          PostgreSQL
 ```
 
 ## Screenshots
