@@ -20,7 +20,8 @@ flowchart TD
 - Terraform configuration split into provider, variables, outputs, and a reusable LXC container module.
 - Proxmox API-token authentication and variable-driven configuration.
 - Ubuntu LXC deployment on dedicated LVM-Thin storage.
-- Ansible roles for common Nginx and PostgreSQL configuration.
+- An end-to-end bootstrap chain: Terraform injects an SSH key at container creation, and Ansible uses it to create a dedicated automation user before configuring anything else.
+- Ansible roles for a baseline (`bootstrap`, `common`), an Nginx + Flask web tier, and PostgreSQL.
 - Practical network troubleshooting: the lab uses static addressing after diagnosing DHCP issues with LXC containers.
 
 ## Quick Start
@@ -40,7 +41,8 @@ Clone the repository, create a local variables file, and fill in your own Proxmo
 git clone https://github.com/marksallee/terraform-proxmox-lab.git
 cd terraform-proxmox-lab/terraform
 cp terraform.tfvars.example terraform.tfvars
-# Edit terraform.tfvars with your own environment values
+# Edit terraform.tfvars with your own environment values,
+# including ssh_public_key (used for the very first Ansible connection).
 ```
 
 Initialize Terraform and check the configuration before making any infrastructure changes:
@@ -61,6 +63,22 @@ terraform output
 
 > **Safety note:** this project creates real Proxmox resources. Start with a disposable lab container, keep API tokens out of Git, and destroy only resources you intend to remove: `terraform destroy`.
 
+### Configure the containers with Ansible
+
+Once `terraform apply` finishes, `ansible/inventory.ini` should already list
+the addresses Terraform assigned. Run the playbook to bootstrap a dedicated
+automation user and then configure each host's role:
+
+```bash
+cd ../ansible
+ansible-playbook site.yml --syntax-check   # validate before touching real hosts
+ansible-playbook site.yml
+```
+
+The first play connects as `root` using the key Terraform injected, creates
+an `ansible` service account, and every subsequent play connects as that
+account instead — see [design-decisions.md](docs/design-decisions.md) for why.
+
 ## Repository Layout
 
 ```
@@ -69,12 +87,11 @@ ansible/     Post-provisioning roles and playbooks
 docs/        Lab notes and supporting documentation
 ```
 
-## Roadmap
+## Documentation
 
-- [ ] Deploy multiple containers from reusable module inputs.
-- [ ] Add GitHub Actions checks for `terraform fmt` and `terraform validate`.
-- [ ] Add a deployed-lab screenshot and a redacted example plan.
-- [ ] Add monitoring services to the lab.
+- [Design decisions](docs/design-decisions.md) — why the lab is built the way it is.
+- [Roadmap](docs/roadmap.md) — what's next, in priority order.
+- [Changelog](docs/CHANGELOG.md) — notable changes by version.
 
 ## License
 

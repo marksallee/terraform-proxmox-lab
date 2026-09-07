@@ -1,6 +1,7 @@
-
-proxmox_endpoint = "https://10.42.0.99:8006/api2/json"
+proxmox_endpoint = "https://192.168.4.99:8006/api2/json"
 
 proxmox_api_token = "terraform@pve!terraform=YOUR_API_TOKEN"
 
 proxmox_insecure = true
+
+ssh_public_key = "ssh-ed25519 AAAA... you@example.com"

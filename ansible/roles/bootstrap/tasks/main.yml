@@ -1,18 +1,18 @@
 ---
 - name: Create ansible automation user
-  user:
+  ansible.builtin.user:
     name: ansible
     groups: sudo
     append: yes
     shell: /bin/bash
 
 - name: Add SSH public key for ansible user
-  authorized_key:
+  ansible.builtin.authorized_key:
     user: ansible
     key: "{{ lookup('file', '~/.ssh/id_ed25519_lab.pub') }}"
 
 - name: Configure passwordless sudo
-  copy:
+  ansible.builtin.copy:
     dest: /etc/sudoers.d/ansible
     content: |
       ansible ALL=(ALL) NOPASSWD:ALL

@@ -1,15 +1,15 @@
 ---
 - name: Update apt package cache
-  apt:
+  ansible.builtin.apt:
     update_cache: yes
     cache_valid_time: 3600
 
 - name: Upgrade installed packages
-  apt:
+  ansible.builtin.apt:
     upgrade: dist
 
 - name: Install common utilities
-  apt:
+  ansible.builtin.apt:
     name:
       - vim
       - curl

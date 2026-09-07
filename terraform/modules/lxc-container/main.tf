@@ -24,6 +24,10 @@ resource "proxmox_virtual_environment_container" "this" {
         gateway = var.gateway
       }
     }
+
+    user_account {
+      keys = var.ssh_public_key == null ? [] : [var.ssh_public_key]
+    }
   }
 
   network_interface {

@@ -40,3 +40,9 @@ variable "disk_size" {
   type    = number
   default = 8
 }
+
+variable "ssh_public_key" {
+  description = "SSH public key installed for the container's root user via cloud-init-style provisioning"
+  type        = string
+  default     = null
+}

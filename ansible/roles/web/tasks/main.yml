@@ -1,6 +1,6 @@
 ---
 - name: Install web packages
-  apt:
+  ansible.builtin.apt:
     name:
       - nginx
       - python3
@@ -10,7 +10,7 @@
     update_cache: yes
 
 - name: Create application directory
-  file:
+  ansible.builtin.file:
     path: /opt/lab-app
     state: directory
     owner: root
@@ -18,7 +18,7 @@
     mode: "0755"
 
 - name: Install Flask application
-  template:
+  ansible.builtin.template:
     src: app.py.j2
     dest: /opt/lab-app/app.py
     owner: root
@@ -26,7 +26,7 @@
     mode: "0644"
 
 - name: Install application systemd service
-  template:
+  ansible.builtin.template:
     src: lab-app.service.j2
     dest: /etc/systemd/system/lab-app.service
     owner: root
@@ -34,8 +34,33 @@
     mode: "0644"
 
 - name: Enable and start application
-  systemd:
+  ansible.builtin.systemd:
     name: lab-app
     enabled: yes
     state: started
     daemon_reload: yes
+
+- name: Configure nginx site
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/lab-app
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Enable lab nginx configuration
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/lab-app
+    dest: /etc/nginx/sites-enabled/lab-app
+    state: link
+
+- name: Remove default nginx site
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Restart nginx
+  ansible.builtin.systemd:
+    name: nginx
+    enabled: yes
+    state: restarted
