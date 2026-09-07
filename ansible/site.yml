@@ -6,8 +6,12 @@
 - name: Bootstrap the ansible automation user and apply common baseline
   hosts: all
   become: true
-  remote_user: root
+  # NOTE: inventory.ini sets ansible_user=ansible in [all:vars], and inventory
+  # group vars take precedence over the play-level remote_user keyword. A
+  # play *variable* (ansible_user) sits higher in Ansible's precedence order
+  # than inventory group vars, so this is what actually overrides it.
   vars:
+    ansible_user: root
     ansible_ssh_private_key_file: ~/.ssh/id_ed25519
   roles:
     - bootstrap

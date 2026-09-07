@@ -1,5 +1,7 @@
 # Terraform Proxmox Lab
 
+[![CI](https://github.com/marksallee/terraform-proxmox-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/marksallee/terraform-proxmox-lab/actions/workflows/ci.yml)
+
 A portfolio home lab that demonstrates a practical infrastructure delivery path: define repeatable infrastructure with Terraform, provision Ubuntu LXC containers on Proxmox VE, and prepare them for configuration with Ansible.
 
 ## Architecture
@@ -14,6 +16,12 @@ flowchart TD
     ANS --> NGINX[Nginx]
     ANS --> PG[PostgreSQL]
 ```
+
+## Screenshots
+
+| Provisioned containers | CI passing | The deployed app |
+| --- | --- | --- |
+| ![Proxmox web UI showing web01, web02, and postgres01 running](docs/images/proxmox_containers.jpg) | ![GitHub Actions CI run passing](docs/images/proxmox_lab_actions.jpg) | ![Flask app served through nginx](docs/images/webapp_screenshot.JPG) |
 
 ## What this demonstrates
 
