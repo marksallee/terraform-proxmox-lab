@@ -23,12 +23,6 @@ Terraform  --(Proxmox API token)-->  Proxmox VE 9
                                                    Nginx          PostgreSQL
 ```
 
-## Screenshots
-
-| Provisioned containers | CI passing | The deployed app |
-| --- | --- | --- |
-| ![Proxmox web UI showing web01, web02, and postgres01 running](docs/images/proxmox_containers.jpg) | ![GitHub Actions CI run passing](docs/images/proxmox_lab_actions.jpg) | ![Flask app served through nginx](docs/images/webapp_screenshot.JPG) |
-
 ## What this demonstrates
 
 - Terraform configuration split into provider, variables, outputs, and a reusable LXC container module.
@@ -106,6 +100,12 @@ docs/        Lab notes and supporting documentation
 - [Design decisions](docs/design-decisions.md) — why the lab is built the way it is.
 - [Roadmap](docs/roadmap.md) — what's next, in priority order.
 - [Changelog](docs/CHANGELOG.md) — notable changes by version.
+
+## Screenshots
+
+| Provisioned containers | CI passing | The deployed app |
+| --- | --- | --- |
+| ![Proxmox web UI showing web01, web02, and postgres01 running](docs/images/proxmox_containers.jpg) | ![GitHub Actions CI run passing](docs/images/proxmox_lab_actions.jpg) | ![Flask app served through nginx](docs/images/webapp_screenshot.JPG) |
 
 ## License
 
